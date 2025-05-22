@@ -1,0 +1,457 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Options · Multiple Select</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="The options API of Multiple Select."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Options · Multiple Select"/><meta property="og:type" content="website"/><meta property="og:url" content="http://multiple-select.wenzhixin.net.cn/"/><meta property="og:description" content="The options API of Multiple Select."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><script type="text/javascript" src="https://gg.wenzhixin.net.cn/wenzhixin/gg.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/en"><img class="logo" src="/img/favicon.png" alt="Multiple Select"/><h2 class="headerTitleWithLogo">Multiple Select</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/en/download" target="_self">Getting started</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/docs/en/options" target="_self">Documentation</a></li><li class=""><a href="/examples" target="_self">Examples</a></li><li class=""><a href="/docs/en/introduction" target="_self">Vue Component</a></li><li class=""><a href="/vue-examples/" target="_self">Vue Examples</a></li><li class=""><a href="http://multiple-select-live.wenzhixin.net.cn" target="_blank">Online Editor</a></li><li class=""><a href="https://github.com/wenzhixin/multiple-select" target="_blank">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Documentation</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Documentation</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs/en/options">Options</a></li><li class="navListItem"><a class="navItem" href="/docs/en/events">Events</a></li><li class="navListItem"><a class="navItem" href="/docs/en/methods">Methods</a></li><li class="navListItem"><a class="navItem" href="/docs/en/localizations">Localizations</a></li><li class="navListItem"><a class="navItem" href="/docs/en/themes">Themes</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Options</h1></header><article><div><span><p>The options API of Multiple Select.</p>
+<div id="gg"></div>
+<p>The Options are defined in <code>jQuery.fn.multipleSelect.defaults</code>.</p>
+<h2><a class="anchor" aria-hidden="true" id="name"></a><a href="#name" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>name</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>name</code></p></li>
+<li><p><strong>Type:</strong> String</p></li>
+<li><p><strong>Detail:</strong> The name of the select element.</p></li>
+<li><p><strong>Default:</strong> <code>''</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#submit-select.html">Submit Select</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="placeholder"></a><a href="#placeholder" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>placeholder</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>placeholder</code></p></li>
+<li><p><strong>Type:</strong> String</p></li>
+<li><p><strong>Detail:</strong> A placeholder value can be defined and will be displayed until you select an item.</p></li>
+<li><p><strong>Default:</strong> <code>''</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#placeholder.html">The Placeholder</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="classes"></a><a href="#classes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>classes</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-classes</code></p></li>
+<li><p><strong>Type:</strong> String</p></li>
+<li><p><strong>Detail:</strong> The class name of select.</p></li>
+<li><p><strong>Default:</strong> <code>''</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#classes.html">The Classes</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="classprefix"></a><a href="#classprefix" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>classPrefix</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-class-prefix</code></p></li>
+<li><p><strong>Type:</strong> String</p></li>
+<li><p><strong>Detail:</strong> The class prefix of select.</p></li>
+<li><p><strong>Default:</strong> <code>''</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#classes.html">The Classes</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="classinput"></a><a href="#classinput" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>classInput</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-class-input</code></p></li>
+<li><p><strong>Type:</strong> String</p></li>
+<li><p><strong>Detail:</strong> The class of input radio/checkbox.</p></li>
+<li><p><strong>Default:</strong> <code>''</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#themes.html">The Themes</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="data"></a><a href="#data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>data</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>-</code></p></li>
+<li><p><strong>Type:</strong> Array</p></li>
+<li><p><strong>Detail:</strong> The data to be loaded.</p>
+<p>The optgroup object contains these parameters:</p>
+<ul>
+<li><code>type</code>: <code>'optgroup'</code>.</li>
+<li><code>label</code>: the label of optgroup.</li>
+<li><code>visible</code>: where to display this optgroup.</li>
+<li><code>selected</code>: where to select this optgroup.</li>
+<li><code>disabled</code>: where to disable this optgroup.</li>
+<li><code>children</code>: the options of this optgroup.</li>
+</ul>
+<p>Examples:</p>
+<pre><code class="hljs css language-html"><span class="hljs-tag">&lt;<span class="hljs-name">optgroup</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"group1"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"1"</span>&gt;</span>option 1<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">optgroup</span>&gt;</span>
+</code></pre>
+<pre><code class="hljs css language-js">[
+  {
+    <span class="hljs-attr">type</span>: <span class="hljs-string">'optgroup'</span>,
+    <span class="hljs-attr">label</span>: <span class="hljs-string">'Group 1'</span>,
+    <span class="hljs-attr">children</span>: [
+      {
+        <span class="hljs-attr">text</span>: <span class="hljs-string">'Option 1'</span>,
+        <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>
+      }
+    ]
+  }
+]
+</code></pre>
+<p>The option object contains these parameters:</p>
+<ul>
+<li><code>text</code>: the text of option.</li>
+<li><code>value</code>: the value of option.</li>
+<li><code>visible</code>: where to display this option.</li>
+<li><code>selected</code>: where to select this option.</li>
+<li><code>disabled</code>: where to disable this option.</li>
+<li><code>classes</code>: the class of the option.</li>
+<li><code>title</code>: the title of the option.</li>
+<li><code>divider</code>: display this option as a divider.</li>
+</ul>
+<p>Examples:</p>
+<pre><code class="hljs css language-html"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"1"</span>&gt;</span>Option 1<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">data-divider</span>=<span class="hljs-string">"true"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span>&gt;</span>Option 2<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+</code></pre>
+<pre><code class="hljs css language-js">[
+  {
+    <span class="hljs-attr">text</span>: <span class="hljs-string">'Option 1'</span>,
+    <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>
+  },
+  {
+    <span class="hljs-attr">divider</span>: <span class="hljs-literal">true</span>
+  },
+  {
+    <span class="hljs-attr">text</span>: <span class="hljs-string">'Option 2'</span>,
+    <span class="hljs-attr">value</span>: <span class="hljs-number">2</span>
+  }
+]
+</code></pre>
+<p>Or Object:</p>
+<pre><code class="hljs css language-js">{
+  <span class="hljs-number">1</span>: <span class="hljs-string">'Option 1'</span>
+}
+</code></pre>
+<p>Or String/Number Array:</p>
+<pre><code class="hljs css language-js">[<span class="hljs-string">'option1'</span>]
+
+
+[<span class="hljs-number">1</span>]
+</code></pre></li>
+<li><p><strong>Default:</strong> []</p></li>
+<li><p><strong>Example:</strong> <a href="/examples#data.html">The Data</a>.</p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="locale"></a><a href="#locale" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>locale</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-locale</code></p></li>
+<li><p><strong>Type:</strong> <code>String</code></p></li>
+<li><p><strong>Detail:</strong></p>
+<p>Sets the locale to use (i.e. <code>'zh-CN'</code>). Locale files must be pre-loaded.
+Allows for fallback locales, if loaded, in the following order:</p>
+<ul>
+<li>First tries for the locale as specified,</li>
+<li>Then tries the locale with '_' translated to '-' and the region code upper cased,</li>
+<li>Then tries the short locale code (i.e. <code>'zh'</code> instead of <code>'zh-CN'</code>),</li>
+<li>Finally, we will use the last locale file loaded (or the default locale if no locales are loaded).</li>
+</ul>
+<p>If left <code>undefined</code> or an empty string, use the last locale loaded (or <code>'en-US'</code> if no locale files loaded).</p></li>
+<li><p><strong>Default:</strong> <code>undefined</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#locale.html">The Locale</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="selectall"></a><a href="#selectall" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>selectAll</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-select-all</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Show selects all checkbox.</p></li>
+<li><p><strong>Default:</strong> <code>true</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#hide-select-all.html">Hide Select All</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="single"></a><a href="#single" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>single</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-single</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Allows you to select only one option, if the select has not multiple attribute, this option will auto set to <code>true</code>.</p></li>
+<li><p><strong>Default:</strong> <code>undefined</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#single-row.html">Single Row</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="singleradio"></a><a href="#singleradio" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>singleRadio</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-single-radio</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Allows you to show the radio input when <code>single</code> is set to <code>true</code>.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#single-radio.html">Single Radio</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="multiple"></a><a href="#multiple" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>multiple</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-multiple</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Show multiple items in a row.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#multiple-items.html">Multiple Items</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="hideoptgroupcheckboxes"></a><a href="#hideoptgroupcheckboxes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>hideOptgroupCheckboxes</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-hide-optgroup-checkboxes</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Hide the optgroup checkboxes.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#hide-optgroup-checkboxes.html">Hide Optgroup Check</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="multiplewidth"></a><a href="#multiplewidth" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>multipleWidth</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-multiple-width</code></p></li>
+<li><p><strong>Type:</strong> Number</p></li>
+<li><p><strong>Detail:</strong> Show the width of multiple items.</p></li>
+<li><p><strong>Default:</strong> <code>80</code></p></li>
+<li><p><strong>Example:</strong> <li><a href="/examples#multiple-items.html">Multiple Items</a></li></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="width"></a><a href="#width" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>width</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-width</code></p></li>
+<li><p><strong>Type:</strong> undefined</p></li>
+<li><p><strong>Detail:</strong> Define the width property of the select, support a percentage setting.</p></li>
+<li><p><strong>Default:</strong> <code>undefined</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#custom-dropdown-width.html">Custom Dropdown Width</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="size"></a><a href="#size" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>size</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-size</code></p></li>
+<li><p><strong>Type:</strong> String</p></li>
+<li><p><strong>Detail:</strong> The size of select.</p></li>
+<li><p><strong>Default:</strong> <code>''</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#classes.html">The Classes</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="dropwidth"></a><a href="#dropwidth" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dropWidth</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-drop-width</code></p></li>
+<li><p><strong>Type:</strong> undefined</p></li>
+<li><p><strong>Detail:</strong> Define the dropdown width.</p></li>
+<li><p><strong>Default:</strong> <code>undefined</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#custom-dropdown-width.html">Custom Dropdown Width</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="maxheight"></a><a href="#maxheight" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>maxHeight</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-max-height</code></p></li>
+<li><p><strong>Type:</strong> Number</p></li>
+<li><p><strong>Detail:</strong> Define the maximum height property of the dropdown list.</p></li>
+<li><p><strong>Default:</strong> <code>250</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#max-height.html">Max Height</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="maxheightunit"></a><a href="#maxheightunit" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>maxHeightUnit</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-max-height-unit</code></p></li>
+<li><p><strong>Type:</strong> String</p></li>
+<li><p><strong>Detail:</strong> Define the unit of the <code>maxHeight</code> option, can only be 'px' or 'row'.</p></li>
+<li><p><strong>Default:</strong> <code>px</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#max-height-unit.html">Max Height Unit</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="position"></a><a href="#position" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>position</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-position</code></p></li>
+<li><p><strong>Type:</strong> String</p></li>
+<li><p><strong>Detail:</strong> Defines the position of the select dropdown, can only be 'bottom' or 'top'.</p></li>
+<li><p><strong>Default:</strong> <code>bottom</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#position.html">The Position</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="displayvalues"></a><a href="#displayvalues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>displayValues</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-display-values</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Display selected values instead of text.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#display-values.html">Display Values</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="displaytitle"></a><a href="#displaytitle" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>displayTitle</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-display-title</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Display the <code>title</code> of selected text.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#display-title.html">Display Title</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="displaydelimiter"></a><a href="#displaydelimiter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>displayDelimiter</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-display-delimiter</code></p></li>
+<li><p><strong>Type:</strong> String</p></li>
+<li><p><strong>Detail:</strong> Customize the display delimiter.</p></li>
+<li><p><strong>Default:</strong> <code>,</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#display-delimiter.html">Display Delimiter</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="minimumcountselected"></a><a href="#minimumcountselected" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>minimumCountSelected</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-minimum-count-selected</code></p></li>
+<li><p><strong>Type:</strong> Number</p></li>
+<li><p><strong>Detail:</strong> <code>formatCountSelected</code> will be shown only if more than <code>minimumCountSelected</code> items were selected.</p></li>
+<li><p><strong>Default:</strong> <code>3</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#minimum-count-selected.html">Minimum Count Selected</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="ellipsis"></a><a href="#ellipsis" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ellipsis</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-ellipsis</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Add <code>'...'</code> after selected options if <code>minimumCountSelected</code> is set. Overrides <code>formatCountSelected</code> option.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#ellipsis.html">The Ellipsis</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="isopen"></a><a href="#isopen" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>isOpen</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-is-open</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Open the select dropdown by default.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#is-open.html">Is Open</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="keepopen"></a><a href="#keepopen" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>keepOpen</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-keep-open</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Keep the select dropdown always open.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#keep-open.html">Keep Open</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="openonhover"></a><a href="#openonhover" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>openOnHover</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-open-on-hover</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Open the select dropdown by hovering instead of clicking.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#open-on-hover.html">Open On Hover</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="container"></a><a href="#container" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>container</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-container</code></p></li>
+<li><p><strong>Type:</strong> object</p></li>
+<li><p><strong>Detail:</strong> Define a custom container to solve the cut-off problem. For example, the parent node is <code>overflow: hidden</code>.</p></li>
+<li><p><strong>Default:</strong> <code>null</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#container.html">The Container</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="filter"></a><a href="#filter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filter</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-filter</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Show a search field to search through checkbox items.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#filter.html">The Filter</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="filtergroup"></a><a href="#filtergroup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filterGroup</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-group</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Filter optgroups only and not options.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#filter-group.html">Filter Only Optgroup</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="filterplaceholder"></a><a href="#filterplaceholder" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filterPlaceholder</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-filter-placeholder</code></p></li>
+<li><p><strong>Type:</strong> String</p></li>
+<li><p><strong>Detail:</strong> Set the filter placeholder.</p></li>
+<li><p><strong>Default:</strong> ``</p></li>
+<li><p><strong>Example:</strong> <a href="/examples#filter-placeholder.html">Filter Placeholder</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="filteracceptonenter"></a><a href="#filteracceptonenter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filterAcceptOnEnter</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-filter-accept-on-enter</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Speed up keyboard use. Enter filter text and then hit <code>enter</code> or <code>space</code>. It will auto-click <code>select all</code> and close the dropdown.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#filter-accept-on-enter.html">Filter Accept On Enter</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="filterbydatalength"></a><a href="#filterbydatalength" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filterByDataLength</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-filter-by-data-length</code></p></li>
+<li><p><strong>Type:</strong> Number</p></li>
+<li><p><strong>Detail:</strong> Auto enable filter when the data(options) length is more than the set number.</p></li>
+<li><p><strong>Default:</strong> <code>undefined</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#filter-by-data-length.html">Filter By Data Length</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="filterselectall"></a><a href="#filterselectall" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filterSelectAll</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-filter-select-all</code></p></li>
+<li><p><strong>Type:</strong> Boolean</p></li>
+<li><p><strong>Detail:</strong> Show select all checkbox in the filter.</p></li>
+<li><p><strong>Default:</strong> <code>undefined</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#filter-select-all.html">Filter Select All</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="customfilter"></a><a href="#customfilter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>customFilter</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>-</code></p></li>
+<li><p><strong>Type:</strong> function</p></li>
+<li><p><strong>Detail:</strong> The custom filter function returns a boolean to filter or not, containing parameter: <code>{ text, label, search }</code>.</p></li>
+<li><p><strong>Default:</strong> <code>{ return (label || text).includes(search) }</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#custom-filter.html">Custom Filter</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="showclear"></a><a href="#showclear" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>showClear</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-show-clear</code></p></li>
+<li><p><strong>Type:</strong> undefined</p></li>
+<li><p><strong>Detail:</strong> Show the clear icon to uncheck all selected items.</p></li>
+<li><p><strong>Default:</strong> <code>false</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#show-clear.html">Show Clear</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="animate"></a><a href="#animate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>animate</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>data-animate</code></p></li>
+<li><p><strong>Type:</strong> undefined</p></li>
+<li><p><strong>Detail:</strong> Define the animation of opening or closing the dropdown. It can be <code>undefined</code>, <code>'fade'</code> and <code>'slide'</code>.</p></li>
+<li><p><strong>Default:</strong> <code>undefined</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#animate.html">The Animate</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="styler"></a><a href="#styler" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>styler</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>-</code></p></li>
+<li><p><strong>Type:</strong> function</p></li>
+<li><p><strong>Detail:</strong> The item styler function returns a style string to custom the item style, containing the parameter: <code>row</code>. (updated 1.4.1)</p></li>
+<li><p><strong>Default:</strong> <code>{ return false }</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#styler.html">The Styler</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="texttemplate"></a><a href="#texttemplate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>textTemplate</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>-</code></p></li>
+<li><p><strong>Type:</strong> function</p></li>
+<li><p><strong>Detail:</strong> The item textTemplate function returns a string to customize the item text, containing the parameter <code>$elm</code>.</p></li>
+<li><p><strong>Default:</strong> <code>{ return $elm[0].innerHTML }</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#text-template.html">Text Template</a></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="labeltemplate"></a><a href="#labeltemplate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>labelTemplate</h2>
+<ul>
+<li><p><strong>Attribute:</strong> <code>-</code></p></li>
+<li><p><strong>Type:</strong> function</p></li>
+<li><p><strong>Detail:</strong> The item labelTemplate function, return string to custom the optgroup label, contains parameter: <code>$elm</code>.</p></li>
+<li><p><strong>Default:</strong> <code>{ return $elm[0].getAttribute('label') }</code></p></li>
+<li><p><strong>Example:</strong> <a href="/examples#label-template.html">Label Template</a></p></li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/en/events"><span>Events</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#name">name</a></li><li><a href="#placeholder">placeholder</a></li><li><a href="#classes">classes</a></li><li><a href="#classprefix">classPrefix</a></li><li><a href="#classinput">classInput</a></li><li><a href="#data">data</a></li><li><a href="#locale">locale</a></li><li><a href="#selectall">selectAll</a></li><li><a href="#single">single</a></li><li><a href="#singleradio">singleRadio</a></li><li><a href="#multiple">multiple</a></li><li><a href="#hideoptgroupcheckboxes">hideOptgroupCheckboxes</a></li><li><a href="#multiplewidth">multipleWidth</a></li><li><a href="#width">width</a></li><li><a href="#size">size</a></li><li><a href="#dropwidth">dropWidth</a></li><li><a href="#maxheight">maxHeight</a></li><li><a href="#maxheightunit">maxHeightUnit</a></li><li><a href="#position">position</a></li><li><a href="#displayvalues">displayValues</a></li><li><a href="#displaytitle">displayTitle</a></li><li><a href="#displaydelimiter">displayDelimiter</a></li><li><a href="#minimumcountselected">minimumCountSelected</a></li><li><a href="#ellipsis">ellipsis</a></li><li><a href="#isopen">isOpen</a></li><li><a href="#keepopen">keepOpen</a></li><li><a href="#openonhover">openOnHover</a></li><li><a href="#container">container</a></li><li><a href="#filter">filter</a></li><li><a href="#filtergroup">filterGroup</a></li><li><a href="#filterplaceholder">filterPlaceholder</a></li><li><a href="#filteracceptonenter">filterAcceptOnEnter</a></li><li><a href="#filterbydatalength">filterByDataLength</a></li><li><a href="#filterselectall">filterSelectAll</a></li><li><a href="#customfilter">customFilter</a></li><li><a href="#showclear">showClear</a></li><li><a href="#animate">animate</a></li><li><a href="#styler">styler</a></li><li><a href="#texttemplate">textTemplate</a></li><li><a href="#labeltemplate">labelTemplate</a></li></ul></nav></div><footer class="nav-footer" id="footer"><ul class="footer-links"><li><a href="https://github.com/wenzhixin/multiple-select" target="_blank">GitHub</a></li><li><a href="https://twitter.com/wenzhixin2010" target="_blank">Twitter</a></li><li><a href="http://wenzhixin.net.cn/" target="_blank">My website</a></li><li><a href="http://repos.wenzhixin.net.cn/" target="_blank">My repos</a></li><li><a href="mailto:wenzhixin2010@gmail.com">Email</a></li></ul><section class="copyright">Copyright © 2010-2025 wenzhixin.net.cn</section></footer></div></body></html>
